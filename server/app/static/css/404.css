@@ -1,0 +1,69 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: burlywood;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.page_404 {
+    padding: 40px 0;
+    font-family: 'Arvo', serif;
+    text-align: center;
+    color: #333;
+}
+
+.four_zero_four_bg {
+    background-image: url(https://udoba.org/sites/default/files/h5p/content/46342/images/file-6329c635834c5.gif);
+    height: 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-top: -30px;
+}
+
+.four_zero_four_bg h1 {
+    font-size: 100px;
+    color: #fff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    top: -100px;
+}
+
+.content_box_404 {
+    margin-top: -15px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.content_box_404 h3 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.content_box_404 p {
+    font-size: 18px;
+    color: #666;
+}
+
+.link_404 {
+    color: #fff !important;
+    padding: 12px 30px;
+    background: #39ac31;
+    margin: 20px 0;
+    display: inline-block;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+}
+
+.link_404:hover {
+    background: #2a8b24;
+}

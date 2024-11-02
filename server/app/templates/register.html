@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/register.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<body>
+    <div class="content">
+        <div class="text">
+            Register Form
+        </div>
+        <form method="POST" action="/register">
+            <div class="field">
+                <input type="text" name="username" required>
+                <span class="fas fa-user"></span>
+                <label>Username</label>
+            </div>
+            <div class="field">
+                <input type="password" name="password" required>
+                <span class="fas fa-lock"></span>
+                <label>Password</label>
+            </div>
+            <div class="field">
+                <input type="password" name="password2" required>
+                <span class="fas fa-lock"></span>
+                <label>Repeat password</label>
+            </div>
+            <button>Sign in</button>
+            <div class="sign-up">
+                Already registered?
+                <a href="/">LogIn</a>
+            </div>
+            {% if message %}
+            <p style="color: red">{{ message }}</p>
+            {% endif %}
+
+        </form>
+    </div>
+</body>
+
+</html>
