@@ -7,7 +7,7 @@ const addBox = document.querySelector(".add-box"),
     addBtn = popupBox.querySelector("button");
 
 const months = ["January", "February", "March", "April", "May", "June", "July",
-                "August", "September", "October", "November", "December"];
+    "August", "September", "October", "November", "December"];
 let isUpdate = false, updateId;
 
 addBox.addEventListener("click", () => {
@@ -15,7 +15,7 @@ addBox.addEventListener("click", () => {
     addBtn.innerText = "Add Note";
     popupBox.classList.add("show");
     document.querySelector("body").style.overflow = "hidden";
-    if(window.innerWidth > 660) titleTag.focus();
+    if (window.innerWidth > 660) titleTag.focus();
 });
 
 closeIcon.addEventListener("click", () => {
@@ -30,7 +30,7 @@ function showNotes() {
         .then(response => response.json())
         .then(notes => {
             const notesList = document.querySelector(".notes-list");
-            notesList.innerHTML = ""; 
+            notesList.innerHTML = "";
             notes.forEach(note => {
                 let liTag = `<li class="note">
                                 <div class="details">
@@ -60,14 +60,14 @@ function deleteAllNotes() {
     fetch(`/delete_all_notes`, {
         method: "DELETE"
     })
-    .then(response => {
-        if (response.ok) {
-            showNotes(); 
-            location.reload();
-        } else {
-            alert("Error deleting all notes.");
-        }
-    });
+        .then(response => {
+            if (response.ok) {
+                showNotes();
+                location.reload();
+            } else {
+                alert("Error deleting all notes.");
+            }
+        });
 }
 
 
@@ -75,7 +75,7 @@ function deleteAllNotes() {
 function showMenu(elem) {
     elem.parentElement.classList.add("show");
     document.addEventListener("click", e => {
-        if(e.target.tagName != "I" || e.target != elem) {
+        if (e.target.tagName != "I" || e.target != elem) {
             elem.parentElement.classList.remove("show");
         }
     });
@@ -88,14 +88,14 @@ function deleteNote(noteId) {
     fetch(`/delete_note/${noteId}`, {
         method: "DELETE"
     })
-    .then(response => {
-        if (response.ok) {
-            showNotes(); 
-            location.reload();
-        } else {
-            alert("Error deleting note.");
-        }
-    });
+        .then(response => {
+            if (response.ok) {
+                showNotes();
+                location.reload();
+            } else {
+                alert("Error deleting note.");
+            }
+        });
 }
 
 function updateNote(noteId, title, content) {
@@ -125,18 +125,18 @@ addBtn.addEventListener("click", e => {
             },
             body: JSON.stringify(noteData),
         })
-        .then(response => {
-            if (response.ok) {
-                showNotes(); 
-                location.reload();
-                closeIcon.click();
-                isUpdate = false; 
-                titleTag.value = descTag.value = ""; 
-            } else {
-                alert("Error saving note.");
-            }
-        })
-        .catch(error => console.error('Error:', error));
+            .then(response => {
+                if (response.ok) {
+                    showNotes();
+                    location.reload();
+                    closeIcon.click();
+                    isUpdate = false;
+                    titleTag.value = descTag.value = "";
+                } else {
+                    alert("Error saving note.");
+                }
+            })
+            .catch(error => console.error('Error:', error));
     }
 });
 
