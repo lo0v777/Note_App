@@ -1,152 +1,73 @@
-<!-- <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Заметки</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600&display=swap" rel="stylesheet">
-</head>
-
-<body>
-    <div class="header">
-        <button class="add-note-btn" onclick="openModal()">Добавить заметку</button>
-    </div>
-    <form action="{{ url_for('login') }}" method="get">
-        <button type="submit" class="exit_button">Выход</button>
-    </form>
-    <button class="check_all_notes" onclick="openModal()">Посмотреть все заметки</button>
-    
-    <div class="note-container">
-        {% for note in notes %}
-        <div class="note">
-            <h3>{{ note.title }}</h3>
-            <p>{{ note.content }}</p>
-        </div>
-        {% endfor %}
-    </div>
-    <div class="modal" id="noteModal">
-        <div class="modal-content">
-            <h2>Создать заметку</h2>
-            <form method="POST" action="{{ url_for('main') }}">
-                <label for="title">Заголовок</label>
-                <input type="text" id="title" name="title" placeholder="Введите заголовок" required>
-
-                <label for="content">Содержание</label>
-                <textarea id="content" name="content" placeholder="Введите текст заметки" required></textarea>
-
-                <button type="submit" class="btn">Сохранить заметку</button>
-            </form>
-        </div>
-    </div>
-
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
-</body>
-
-</html> -->
-
-
-
-
-
-
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en" dir="ltr">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <title>Notes App</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Заметки</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
 
 <body>
-    <div class="header">
-        <button class="add-note-btn" onclick="openModal()">Добавить заметку</button>
-    </div>
-    <form action="{{ url_for('login') }}" method="get">
-        <button type="submit" class="exit_button">Выход</button>
-    </form>
-    <button class="check_all_notes" onclick="showAllNotes()">Посмотреть все заметки</button>
-    
-    <div class="note-container">
-        {% for note in notes %}
-        <div class="note">
-            <h3>{{ note.title }}</h3>
-            <p>{{ note.content }}</p>
-        </div>
-        {% endfor %}
-    </div>
-    
-    <div class="modal" id="noteModal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Ваши заметки</h2>
-            <div id="notesContainer"></div> <!-- Контейнер для заметок -->
+    <div class="popup-box">
+        <div class="popup">
+            <div class="content">
+                <header>
+                    <p></p>
+                    <i class="uil uil-times"></i>
+                </header>
+                <form action="#">
+                    <div class="row title">
+                        <label>Title</label>
+                        <input type="text" id="note-title" spellcheck="false">
+                    </div>
+                    <div class="row description">
+                        <label>Content</label>
+                        <textarea id="note-content" spellcheck="false"></textarea>
+                    </div>
+                    <button type="submit" id="add-btn">Add Note</button>
+                </form>
+            </div>
         </div>
     </div>
+    <div class="button-container">
+        <div class="delete-all-container">
+            <button class="delete-all-btn" onclick="deleteAllNotes()">Delete All Notes</button>
+        </div>
+        <div class="exit">
+            <a class="exit" href="{{ url_for('logout') }}">Exit</a>
+        </div>
+    </div>
 
-    <script>
-        // Функция для открытия модального окна
-        function showAllNotes() {
-            fetch("{{ url_for('get_notes') }}")
-                .then(response => response.json())
-                .then(notes => {
-                    const notesContainer = document.getElementById("notesContainer");
-                    notesContainer.innerHTML = ""; // Очистка контейнера
-                    
-                    notes.forEach(note => {
-                        const noteElement = document.createElement("div");
-                        noteElement.classList.add("note");
-                        noteElement.innerHTML = `
-                            <h3>${note.title}</h3>
-                            <p>${note.content}</p>
-                        `;
-                        notesContainer.appendChild(noteElement);
-                    });
-
-                    // Открытие модального окна
-                    document.getElementById("noteModal").style.display = "block";
-                });
-        }
-
-        // Функция для закрытия модального окна
-        function closeModal() {
-            document.getElementById("noteModal").style.display = "none";
-        }
-    </script>
-    
-    <style>
-        /* Модальное окно */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        .modal-content {
-            background-color: white;
-            margin: 10% auto;
-            padding: 20px;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 8px;
-            position: relative;
-        }
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 24px;
-            cursor: pointer;
-        }
-    </style>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
+    <div class="wrapper">
+        <ul class="notes-container">
+            {% for note in notes %}
+            <li class="note" data-id="{{ note.id }}">
+                <div class="details">
+                    <p>{{ note.title }}</p>
+                    <span>{{ note.content }}</span>
+                </div>
+                <div class="bottom-content">
+                    <span>{{ note.created_at.strftime('%B %d, %Y') }}</span>
+                    <div class="settings">
+                        <i onclick="showMenu(this)" class="uil uil-ellipsis-h"></i>
+                        <ul class="menu">
+                            <li onclick="updateNote({{ note.id }}, '{{ note.title }}', '{{ note.content }}')"><i
+                                    class="uil uil-pen"></i>Edit</li>
+                            <li onclick="deleteNote({{ note.id }})"><i class="uil uil-trash"></i>Delete</li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <li class="add-box">
+            <div class="icon"><i class="uil uil-plus"></i></div>
+            <p>Add new note</p>
+        </li>
+    </div>
+    <script src="{{url_for('static', filename='js/script.js')}}"></script>
 </body>
+
 </html>

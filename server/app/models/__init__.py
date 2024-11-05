@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db=SQLAlchemy()
 
@@ -21,7 +22,8 @@ class Note(db.Model):
     title = db.Column(db.String(250), nullable=False)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)  
+    
     user = db.relationship('Users', backref=db.backref('notes', lazy=True))
 
     def __init__(self, title, content, user_id):
