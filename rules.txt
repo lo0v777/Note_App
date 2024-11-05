@@ -1,7 +1,0 @@
-httponly flag
-xss protection
-
-cloudflare
-function - resset password
-current notes for current user
-admin tasks for current user
