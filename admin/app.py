@@ -2,11 +2,10 @@ from flask import (
     Flask, 
     redirect,
     )
-from flask_sqlalchemy  import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from models import db, Users, Note
-
+from flask_login import current_user
 import pymysql
 
 
@@ -25,11 +24,18 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+class NoteModelView(ModelView):
+    def on_model_change(self, form, model, is_created):
+        if is_created:  
+            if current_user.is_authenticated:  
+                model.user_id = current_user.id 
+            else:
+                raise ValueError("User not auth!")
+        return super().on_model_change(form, model, is_created)
 
 admin = Admin(app, name='Admin Panel', template_mode='bootstrap3')
 admin.add_view(ModelView(Users,db.session))
-admin.add_view(ModelView(Note,db.session))
-
+admin.add_view(NoteModelView(Note, db.session))  
 
 @app.route('/',methods=['GET'])
 def admin_panel():
