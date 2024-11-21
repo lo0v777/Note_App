@@ -1,12 +1,12 @@
 from flask import (
     Flask, 
-    redirect,
+    redirect
     )
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from models import db, Users, Note
 from flask_login import current_user
-import pymysql
+import pymysql, sqlalchemy
 
 
 app = Flask(__name__)
@@ -16,9 +16,24 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '9A68E85B5F0593EDC601435D236CF9B0917405F6012F0F946DDF4F6250485382'
 
 pymysql.install_as_MySQLdb()    
-
-
 db.init_app(app) 
+
+
+engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@localhost')
+with engine.connect() as connection:
+    connection.execute(sqlalchemy.text("CREATE DATABASE IF NOT EXISTS db"))
+    
+    connection.execute(sqlalchemy.text("USE db"))
+    
+    
+engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@localhost/db')
+
+with engine.connect() as connection:
+    result = connection.execute(sqlalchemy.text("SELECT DATABASE()"))
+    if result:
+        print("db exiting")
+    else:
+        print("db not existing")  
  
 
 with app.app_context():
@@ -42,6 +57,6 @@ def admin_panel():
     return redirect('/admin')
 
 if __name__ == '__main__':
-    app.run(debug=True,port=5001)
+    app.run(debug=True,host = "0.0.0.0", port=5001)
 
 

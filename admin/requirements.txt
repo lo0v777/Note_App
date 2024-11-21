@@ -1,0 +1,6 @@
+Flask
+Flask_SQLAlchemy
+Flask_Admin
+Flask_Login
+PyMySQL
+waitress

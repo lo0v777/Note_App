@@ -31,13 +31,12 @@
             </div>
         </div>
     </div>
-    <div class="button-container">
-        <div class="delete-all-container">
-            <button class="delete-all-btn" onclick="deleteAllNotes()">Delete All Notes</button>
+    <div class="header-container">
+        <div class="username">
+            <p>Hello, {{username}}</p>
         </div>
-        <div class="exit">
-            <a class="exit" href="{{ url_for('logout') }}">Exit</a>
-        </div>
+        <button class="delete-all-btn" onclick="deleteAllNotes()">Delete All Notes</button>
+        <a class="exit" href="{{ url_for('logout') }}">Exit</a>
     </div>
 
     <div class="wrapper">

@@ -1,6 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
+
+from flask import current_app
+from itsdangerous import URLSafeTimedSerializer as Serializer
+
 db=SQLAlchemy()
 
 
@@ -10,10 +14,25 @@ class Users(db.Model):
     id=db.Column(db.Integer(),primary_key=True)
     username=db.Column(db.String(250),nullable=False)
     password = db.Column(db.String(250),nullable=False)
+    email = db.Column(db.String(250),nullable=False)
 
-    def __init__(self,username, password):
+    def __init__(self,username, password, email):
         self.username = username
         self.password = password
+        self.email = email
+        
+    def generate_reset_token(self, expires_sec=1800):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        return s.dumps({'user_id': self.id})
+
+    @staticmethod
+    def verify_reset_token(token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            user_id = s.loads(token, max_age=1800)['user_id']
+        except:
+            return None
+        return Users.query.get(user_id)
         
 class Note(db.Model):
     __tablename__ = 'notes'

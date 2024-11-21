@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/reset_token.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <title>Reset Password</title>
+</head>
+
+<body>
+    <div class="content">
+        <div class="text">
+            Enter New Password
+        </div>
+        <form action="{{ url_for('reset_token', token=token) }}" method="POST">
+            <div class="field">
+                <input type="password" placeholder="New Password" name="password" required>
+                <span class="fas fa-lock"></span>
+            </div>
+            <button type="submit">Update Password</button>
+        </form>
+    </div>
+</body>
+
+</html>

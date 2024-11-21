@@ -290,14 +290,24 @@ form button {
 }
 
 /***************************************************************************************/
-
-
-.button-container {
+/* Контейнер для username и кнопок */
+.header-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 20px;
   margin-top: 20px;
-  margin-left: 600px;
+}
+
+.username {
+  background-color: goldenrod;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  text-decoration: none;
 }
 
 .delete-all-btn,
@@ -316,7 +326,7 @@ form button {
 .exit {
   display: inline-flex;
   align-items: center;
-  padding: 5px 10px;
+  padding: 10px 20px;
   font-size: 14px;
 }
 
@@ -326,17 +336,9 @@ form button {
 }
 
 @media (max-width: 660px) {
-  .wrapper {
-    margin: 15px;
-    gap: 15px;
-    grid-template-columns: repeat(auto-fill, 100%);
-  }
-
-  .popup-box .popup {
-    max-width: calc(100% - 15px);
-  }
-
-  .bottom-content .settings i {
-    font-size: 17px;
+  .header-container {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
   }
 }

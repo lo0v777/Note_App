@@ -1,0 +1,10 @@
+Flask
+Flask-SQLAlchemy
+Flask-Mail
+waitress
+Flask-WTF
+flask-login
+flask-bcrypt
+pymysql
+itsdangerous
+Flask-Migrate
