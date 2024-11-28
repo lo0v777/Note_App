@@ -30,8 +30,6 @@ services:
     container_name: admin
     build: ./admin
     restart: always
-    ports:
-      - "5001:5001"
     networks:
       - flask-network
 
