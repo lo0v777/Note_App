@@ -148,10 +148,6 @@ def logout():
     session.pop('user_id', None)
     return redirect(url_for("login"))
 
-
-
-
-
 ###to check nginx
 @app.route("/check")
 def check():
