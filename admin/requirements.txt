@@ -4,3 +4,5 @@ Flask_Admin
 Flask_Login
 PyMySQL
 waitress
+pymysql
+cryptography

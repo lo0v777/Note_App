@@ -11,14 +11,18 @@ app.config.from_object('app.config.Config')
 db.init_app(app)
 
 
-engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@localhost')
+# engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@localhost')
+engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@db')
+
 with engine.connect() as connection:
     connection.execute(sqlalchemy.text("CREATE DATABASE IF NOT EXISTS db"))
     
     connection.execute(sqlalchemy.text("USE db"))
     
     
-engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@localhost/db')
+# engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@localhost/db')
+engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@db/db')
+
 
 with engine.connect() as connection:
     result = connection.execute(sqlalchemy.text("SELECT DATABASE()"))

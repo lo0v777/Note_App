@@ -11,7 +11,9 @@ import pymysql, sqlalchemy
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345678@localhost/db'  
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345678@db/db'  
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345678@localhost/db'  
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '9A68E85B5F0593EDC601435D236CF9B0917405F6012F0F946DDF4F6250485382'
 
@@ -19,14 +21,18 @@ pymysql.install_as_MySQLdb()
 db.init_app(app) 
 
 
-engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@localhost')
+# engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@localhost')
+engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@db')
+
 with engine.connect() as connection:
     connection.execute(sqlalchemy.text("CREATE DATABASE IF NOT EXISTS db"))
     
     connection.execute(sqlalchemy.text("USE db"))
     
     
-engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@localhost/db')
+# engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@localhost/db')
+engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@db/db')
+
 
 with engine.connect() as connection:
     result = connection.execute(sqlalchemy.text("SELECT DATABASE()"))

@@ -1,6 +1,6 @@
 services:
-  app:
-    container_name: app
+  flask:
+    container_name: flask
     build: ./server
     restart: always
     ports:
@@ -8,7 +8,7 @@ services:
     depends_on:
       - db
     networks:
-      - app-network
+      - flask-network
 
   nginx:
     image: nginx:latest
@@ -20,23 +20,33 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/.htpasswd:/etc/nginx/.htpasswd
     depends_on:
-      - app
+      - flask
       - db
     networks:
-      - app-network
+      - flask-network
+
+  admin:
+    container_name: admin
+    build: ./admin
+    restart: always
+    ports:
+      - "5001:5001"
+    networks:
+      - flask-network
+
 
   db:
     image: mysql:latest
     container_name: mysql
     restart: always
-    env_file:
-      - ".env"
-      
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345678
+      - MYSQL_DATABASE=db
     ports:
       - "3307:3306"
     networks:
-      - app-network
+      - flask-network
 
 networks:
-  app-network:
+  flask-network:
     driver: bridge

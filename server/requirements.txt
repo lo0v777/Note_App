@@ -8,3 +8,5 @@ flask-bcrypt
 pymysql
 itsdangerous
 Flask-Migrate
+pymysql
+cryptography
