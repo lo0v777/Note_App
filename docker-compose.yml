@@ -9,6 +9,8 @@ services:
       - db
     networks:
       - flask-network
+    environment:
+      - FLASK_ENV=production
 
   nginx:
     image: nginx:latest
@@ -32,6 +34,8 @@ services:
     restart: always
     networks:
       - flask-network
+    environment:
+      - FLASK_ENV=production
 
 
   db:
