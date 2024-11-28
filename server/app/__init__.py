@@ -11,8 +11,7 @@ app.config.from_object('app.config.Config')
 db.init_app(app)
 
 
-# engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@localhost')
-engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@db')
+engine = sqlalchemy.create_engine('mysql+pymysql://username:password@db_name')
 
 with engine.connect() as connection:
     connection.execute(sqlalchemy.text("CREATE DATABASE IF NOT EXISTS db"))
@@ -20,8 +19,7 @@ with engine.connect() as connection:
     connection.execute(sqlalchemy.text("USE db"))
     
     
-# engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@localhost/db')
-engine = sqlalchemy.create_engine('mysql+pymysql://root:12345678@db/db')
+engine = sqlalchemy.create_engine('mysql+pymysql://username:password@db_name/db')
 
 
 with engine.connect() as connection:
@@ -38,5 +36,6 @@ with app.app_context():
     db.create_all()
 
 from app import routes  
+
 
 
